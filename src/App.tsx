@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import './App.css';
 import {TaskType, Todolist} from './Todolist';
 import {v1} from 'uuid';
+import {AddItemForm} from "./components/AddItemForm";
 
 export type FilterValuesType = "all" | "active" | "completed";
 type TodolistType = {
@@ -32,7 +33,8 @@ function App() {
         [todolistId2]: [
             {id: v1(), title: "Milk", isDone: true},
             {id: v1(), title: "React Book", isDone: true}
-        ]
+        ],
+
     });
 
 
@@ -45,15 +47,6 @@ function App() {
         setTasks({...tasks});
     }
 
-    function addTask(title: string, todolistId: string) {
-        let task = {id: v1(), title: title, isDone: false};
-        //достанем нужный массив по todolistId:
-        let todolistTasks = tasks[todolistId];
-        // перезапишем в этом объекте массив для нужного тудулиста копией, добавив в начало новую таску:
-        tasks[todolistId] = [task, ...todolistTasks];
-        // засетаем в стейт копию объекта, чтобы React отреагировал перерисовкой
-        setTasks({...tasks});
-    }
 
     function changeStatus(id: string, isDone: boolean, todolistId: string) {
         //достанем нужный массив по todolistId:
@@ -85,8 +78,27 @@ function App() {
         setTasks({...tasks});
     }
 
+    function addTask(title: string, todolistId: string) {
+        let task = {id: v1(), title: title, isDone: false};
+        //достанем нужный массив по todolistId:
+        let todolistTasks = tasks[todolistId];
+        // перезапишем в этом объекте массив для нужного тудулиста копией, добавив в начало новую таску:
+        tasks[todolistId] = [task, ...todolistTasks];
+        // засетаем в стейт копию объекта, чтобы React отреагировал перерисовкой
+        setTasks({...tasks});
+    }
+
+    const addTodoLists = (newTitle: string) => {
+        const newTodoListId = v1()
+        const newTodoList: TodolistType = {id: newTodoListId, title: newTitle, filter: "all"}
+        setTodolists([ newTodoList, ...todolists])
+        setTasks(
+            {...tasks, [newTodoListId]: []}
+        )
+    }
     return (
         <div className="App">
+            <AddItemForm  callBack={addTodoLists}/>
             {
                 todolists.map(tl => {
                     let allTodolistTasks = tasks[tl.id];
