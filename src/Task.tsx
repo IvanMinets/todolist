@@ -36,3 +36,4 @@ export const Task = React.memo((props: TaskPropsType) => {
         </IconButton>
     </div>
 })
+export default Task;
