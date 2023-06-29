@@ -91,7 +91,7 @@ export const changeTodolistFilterAC = (id: string, filter: FilterValuesType): Ch
 
 export const setTodolistsAC = (todos: Array<TodolistType>) => ({type: 'SET_TODOLISTS', todos} as const)
 
-export const getTodolistsThunk = (dispatch: Dispatch) => {
+export const getTodolistsTC = () => (dispatch: Dispatch) => {
     todolistsAPI.getTodolists()
         .then ((res) => {
             dispatch(setTodolistsAC(res.data))
