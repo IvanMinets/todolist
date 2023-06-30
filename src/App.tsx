@@ -15,7 +15,7 @@ import {
     addTodolistAC,
     changeTodolistFilterAC,
     changeTodolistTitleAC,
-    FilterValuesType, getTodolistsTC, getTodolistsThunk,
+    FilterValuesType, getTodolistsTC,
     removeTodolistAC, setTodolistsAC,
     TodolistDomainType
 } from './state/todolists-reducer'
