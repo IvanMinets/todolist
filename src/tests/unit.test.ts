@@ -1,4 +1,4 @@
-import { Component} from 'react';
+import React from 'react';
 test('test', () => {
     const a = 1
     const b = 2
