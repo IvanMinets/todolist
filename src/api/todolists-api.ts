@@ -44,7 +44,7 @@ export type TodolistType = {
     order: number
 }
 export type ResponseType<D = {}> = {
-    resultCode: number
+    resultCode: number 
     messages: Array<string>
     fieldsErrors: Array<string>
     data: D
