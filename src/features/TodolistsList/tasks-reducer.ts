@@ -4,15 +4,23 @@ import { AppRootStateType, AppThunk } from "app/store"
 import { handleServerAppError, handleServerNetworkError } from "utils/error-utils"
 import { appActions } from "app/app-reducer"
 import {createSlice} from "@reduxjs/toolkit";
+import {todolistsActions} from "features/TodolistsList/todolists-reducer";
 
-const initialState: TasksStateType = {}
+
 
 const initialState: TasksStateType = {}
 
 const slice = createSlice({
     name: "tasks",
     initialState: {} as TasksStateType,
-    reducers: {},
+    reducers: {
+
+    },
+    extraReducers: (builder) => {
+        builder.addCase(todolistsActions.addTodolist, (state, action) => {
+            state[action.payload.todolist.id] = []
+        })
+    }
 })
 
 export const tasksReducers = slice.reducer
@@ -32,6 +40,11 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
           t.id === action.taskId ? { ...t, ...action.model } : t,
         ),
       }
+      case "SET-TASKS":
+          return { ...state, [action.todolistId]: action.tasks }
+
+
+
     case "ADD-TODOLIST":
       return { ...state, [action.todolist.id]: [] }
     case "REMOVE-TODOLIST":
@@ -45,8 +58,7 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
       })
       return copyState
     }
-    case "SET-TASKS":
-      return { ...state, [action.todolistId]: action.tasks }
+
     default:
       return state
   }
