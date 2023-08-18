@@ -25,7 +25,7 @@ const slice = createSlice({
         updateTask: (state, action: PayloadAction<{model: UpdateDomainTaskModelType, todolistId: string, taskId:string }>) =>  {
             const tasksForTodolist = state[action.payload.todolistId]
             const index = tasksForTodolist.findIndex((task) => task.id === action.payload.taskId)
-            if (index === -1 ) {
+            if (index !== -1 ) {
              tasksForTodolist[index] = {...tasksForTodolist[index], ...action.payload.model}
             }
         },
