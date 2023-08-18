@@ -8,7 +8,7 @@ import {
     SetAppErrorActionType,
     setAppStatusAC,
     SetAppStatusActionType
-} from '../../app/app-reducer'
+} from 'app/app-reducer'
 import {handleServerAppError, handleServerNetworkError} from 'utils/error-utils'
 
 const initialState: TasksStateType = {}
