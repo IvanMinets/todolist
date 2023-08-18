@@ -27,6 +27,7 @@ const slice = createSlice({
 
 export const appActions = slice.actions
 export const appReducer = slice.reducer
+export type AppInitialState =  ReturnType<typeof slice.getInitialState>
 
 export const initializeAppTC = () => (dispatch: Dispatch) => {
     authAPI.me().then((res) => {
