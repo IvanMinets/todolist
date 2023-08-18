@@ -3,8 +3,21 @@ import { Dispatch } from "redux"
 import { appActions, RequestStatusType } from "app/app-reducer"
 import { handleServerNetworkError } from "utils/error-utils"
 import { AppThunk } from "app/store"
+import {createSlice} from "@reduxjs/toolkit";
 
 const initialState: Array<TodolistDomainType> = []
+
+
+const slice = createSlice( {
+  name: 'todolists',
+  initialState: [] as Array<TodolistDomainType>,
+  reducers: {
+    
+  }
+
+})
+
+
 
 export const todolistsReducer = (
   state: Array<TodolistDomainType> = initialState,
