@@ -17,9 +17,18 @@ const slice = createSlice({
 
     },
     extraReducers: (builder) => {
-        builder.addCase(todolistsActions.addTodolist, (state, action) => {
+        builder
+            .addCase(todolistsActions.addTodolist, (state, action) => {
             state[action.payload.todolist.id] = []
         })
+            .addCase(todolistsActions.removeTodolist, (state, action) => {
+                state[action.payload.id] = [] })
+
+            .addCase(todolistsActions.setTodolists, (state, action) => {
+                action.payload.todolists.forEach((tl) => {
+                    state[tl.id] =[]
+                })
+            })
     }
 })
 
@@ -42,22 +51,6 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
       }
       case "SET-TASKS":
           return { ...state, [action.todolistId]: action.tasks }
-
-
-
-    case "ADD-TODOLIST":
-      return { ...state, [action.todolist.id]: [] }
-    case "REMOVE-TODOLIST":
-      const copyState = { ...state }
-      delete copyState[action.id]
-      return copyState
-    case "SET-TODOLISTS": {
-      const copyState = { ...state }
-      action.todolists.forEach((tl: any) => {
-        copyState[tl.id] = []
-      })
-      return copyState
-    }
 
     default:
       return state
