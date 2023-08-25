@@ -1,4 +1,4 @@
-import { tasksActions, tasksReducer, TasksStateType } from "features/TodolistsList/tasks.reducer";
+import {tasksActions, tasksReducer, TasksStateType, tasksThunks} from "features/TodolistsList/tasks.reducer";
 import { TaskPriorities, TaskStatuses } from "api/todolists-api";
 import { todolistsActions } from "features/TodolistsList/todolists.reducer";
 
@@ -194,7 +194,20 @@ test("empty arrays should be added when we set todolists", () => {
 });
 
 test("tasks should be added for todolist", () => {
-  const action = tasksActions.setTasks({ tasks: startState["todolistId1"], todolistId: "todolistId1" });
+  //1 variant
+
+  // type FetchTasksActionType = {
+  //   type: string;
+  //   payload: { tasks: TaskType[]; todolistId: string };
+  // };
+  //
+  // const action: FetchTasksActionType = {
+  //   type: tasksThunks.fetchTasks.fulfilled.type,
+  //   payload: { tasks: startState["todolistId1"], todolistId: "todolistId1" },
+  // };
+
+  //2 variant
+  const action = tasksThunks.fetchTasks.fulfilled({ tasks: startState["todolistId1"], todolistId: "todolistId1" }, 'requestId','todolistId1');
 
   const endState = tasksReducer(
     {
