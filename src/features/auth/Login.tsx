@@ -35,9 +35,8 @@ export const Login = () => {
     onSubmit: (values, formikHelpers: FormikHelpers<LoginParamsType>) => {
       dispatch(authThunks.login(values))
           .unwrap()
-          .then ( (res)=> {debugger})
           .catch( (err: BaseResponseType) => {
-            err.fieldsErrors.forEach((fieldError)=> {
+              err.fieldsErrors?.forEach((fieldError)=> {
               formikHelpers.setFieldError(fieldError.field,fieldError.error)
             })
           })
