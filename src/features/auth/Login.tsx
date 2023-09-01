@@ -7,6 +7,7 @@ import {authThunks} from "features/auth/auth.reducer";
 import { useAppDispatch } from "common/hooks";
 import { selectIsLoggedIn } from "features/auth/auth.selectors";
 import {LoginParamsType} from "features/auth/auth.api";
+import {BaseResponseType} from "common/types";
 
 export const Login = () => {
   const dispatch = useAppDispatch();
@@ -15,16 +16,16 @@ export const Login = () => {
 
   const formik = useFormik({
     validate: (values) => {
-      if (!values.email) {
-        return {
-          email: "Email is required",
-        };
-      }
-      if (!values.password) {
-        return {
-          password: "Password is required",
-        };
-      }
+      // if (!values.email) {
+      //   return {
+      //     email: "Email is required",
+      //   };
+      // }
+      // if (!values.password) {
+      //   return {
+      //     password: "Password is required",
+      //   };
+      // }
     },
     initialValues: {
       email: "",
@@ -35,9 +36,10 @@ export const Login = () => {
       dispatch(authThunks.login(values))
           .unwrap()
           .then ( (res)=> {debugger})
-          .catch( (err) => {
-            formikHelpers.setFieldError('email','ERROR MESSAGE')
-            debugger
+          .catch( (err: BaseResponseType) => {
+            err.fieldsErrors.forEach((fieldError)=> {
+              formikHelpers.setFieldError(fieldError.field,fieldError.error)
+            })
           })
     },
   });
